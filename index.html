@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XGEN Uncheck</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: "Arial", sans-serif;
+            text-align: center;
+            background: linear-gradient(to bottom, #00ccff, #0066cc);
+        }
+
+        #container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #title {
+            background: #ff6600;
+            color: white;
+            font-size: 48px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            margin-bottom: 20px;
+        }
+
+        .generator-button {
+            width: 100px;
+            height: 100px;
+            padding: 10px;
+            background-color: #003366;
+            border: none;
+            border-radius: 5px;
+            color: white;
+            font-size: 20px;
+            cursor: pointer;
+            margin: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .generator-button:hover {
+            background-color: #002855;
+        }
+
+        .result-container {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            background: #ff6600;
+            color: white;
+            font-size: 24px;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            transition: all 0.5s;
+        }
+
+        .generated-code {
+            cursor: pointer;
+        }
+
+        .generated-code:hover {
+            text-decoration: underline;
+        }
+
+        .button-container {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            margin: 20px;
+        }
+
+        #credits {
+            color: #333;
+            font-size: 14px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div id="container">
+        <div id="title">
+            XGEN Uncheck
+        </div>
+        <div class="button-container">
+            <button class="generator-button" onclick="generateCode('Nitro')">Nitro</button>
+            <button class="generator-button" onclick="generateCode('PSN')">PSN</button>
+            <button class="generator-button" onclick="generateCode('Xbox')">Xbox</button>
+            <button class="generator-button" onclick="generateCode('Vbucks')">Vbucks</button>
+        </div>
+        <div class="result-container" id="result-container">
+            <div>Générateur : <span class="generated-code" id="generated-code"></span></div>
+        </div>
+        <div id="credits">
+            XGEN By Loles<br>
+            Nocturnal Team 2023
+        </div>
+    </div>
+
+    <script>
+        function generateCode(service) {
+            var resultContainer = document.getElementById("result-container");
+            var generatedCode = document.getElementById("generated-code");
+            var code = "";
+
+            if (service === "Nitro") {
+                code = generateNitroCode();
+            } else if (service === "PSN") {
+                code = generatePSNCode();
+            } else if (service === "Xbox") {
+                code = generateXboxCode();
+            } else if (service === "Vbucks") {
+                code = generateVbucksCode();
+            } else {
+                return;
+            }
+
+            generatedCode.textContent = code;
+            resultContainer.style.display = "flex";
+            setTimeout(function () {
+                resultContainer.style.transform = "translateY(0)";
+            }, 100);
+        }
+
+        function generateNitroCode() {
+            var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            var code = "";
+            for (var i = 0; i < 16; i++) {
+                code += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            return "https://discord.gift/" + code;
+        }
+
+        function generatePSNCode() {
+            var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            var code = "";
+            for (var i = 0; i < 9; i++) {
+                code += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            return code;
+        }
+
+        function generateXboxCode() {
+            var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            var code = "";
+            for (var i = 0; i < 16; i++) {
+                code += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            return code;
+        }
+
+        function generateVbucksCode() {
+            var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            var code = "";
+            for (var i = 0; i < 16; i++) {
+                code += characters.charAt(Math.floor(Math.random() * characters.length));
+            }
+            return code;
+        }
+
+        document.getElementById("generated-code").addEventListener("click", function() {
+            var codeToCopy = document.getElementById("generated-code").textContent;
+            copyToClipboard(codeToCopy);
+        });
+
+        function copyToClipboard(text) {
+            var textArea = document.createElement("textarea");
+            textArea.value = text;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textArea);
+            alert("Code copié dans le presse-papiers : " + text);
+        }
+    </script>
+</body>
+</html>
